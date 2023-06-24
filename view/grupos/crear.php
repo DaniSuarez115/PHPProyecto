@@ -4,8 +4,7 @@
 ?>
 <div class="container-fluid" id="contendorprincipal">    
     <h1><?php echo $this->mensaje;?></h1>
-    <div><?php echo $this->mensajeResultado;?></div>
-    <form class="form-control" action="<?php echo constant('URL'); ?>cursos/actualizarcurso" method="POST">
+    <form class="form-control" action="<?php echo constant('URL'); ?>grupos/insertargrupo" method="POST">
         <?php require 'form.php'; ?>
     </form>
 </div>
