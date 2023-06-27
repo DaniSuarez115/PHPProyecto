@@ -14,7 +14,7 @@ class EstudiantesModel extends Model {
             $query = $this->db->connect()->query($stringSQL);
 
             while ($row = $query->fetch()) {
-                $item = new classestudiantes();
+                $item = new classEstudiantes();
 
                 foreach ($row as $key => $value) {
                     $item->$key = $value;
