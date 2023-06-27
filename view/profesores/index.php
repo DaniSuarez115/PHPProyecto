@@ -53,12 +53,12 @@
                                     <td>'.$datos->apellidopaterno.'</td>
                                     <td>'.$datos->apellidomaterno.'</td>
                                     <td>'.$datos->nacionalidad.'</td>
-                                    <td>'.$datos->idCarreras.'</td>
+                                    <td>'.$datos->idcarreras.'</td>
                                     <td>'.$datos->usuario.'</td>
                                     <td>
-                                        <a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'estudiantes/eliminarEstudiantes/'.$datos->id.'" role="button">Eliminar</a>
+                                        <a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'profesores/eliminarProfesores/'.$datos->id.'" role="button">Eliminar</a>
                                         ||
-                                        <a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'estudiantes/verEstudiante/'.$datos->id.'" role="button">Editar</a>
+                                        <a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'profesores/verProfesores/'.$datos->id.'" role="button">Editar</a>
                                     </td>
                                 </tr>';
                         }

@@ -4,7 +4,7 @@ class Profesores extends Controller {
         parent::__construct();
         parent::connectionSession();
         $this->view->datos = [];
-        $this->view->mensaje = "Seccion Profesores";
+        $this->view->mensaje = "Sección Profesores";
         $this->view->mensajeResultado = "";
     }
 
@@ -40,16 +40,16 @@ class Profesores extends Controller {
 
     function detalle() {
         $this->view->datos = [];
-        $this->view->mensaje = "Detalles del profesores";
+        $this->view->mensaje = "Detalles del profesor";
         $this->view->render('profesores/detalle');
     }
 
-    function verProfesor($param = null) {
+    function verProfesores($param = null) {
         $id = $param[0];
 
         $datos = $this->model->verProfesores($id);
         $this->view->datos = $datos;
-        $this->view->mensaje = "Detalle profesores";
+        $this->view->mensaje = "Detalle del profesor";
         $this->view->render('profesores/detalle');
     }
 
