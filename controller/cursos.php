@@ -20,19 +20,24 @@ class Cursos extends Controller{
         $this->view->render('cursos/crear');
     }
 
-    function insertarCurso(){
-        //var_dump($_POST);
+    public function insertarCurso(){
+        // Obtén el valor del usuario del formulario
+        $usuario = $_POST['usuario'];
+    
+        // Agrega el valor del usuario al arreglo $_POST
+        $_POST['usuario'] = $usuario;
+    
         if ($this->model->insertarCurso($_POST)){
             $mensajeResultado = '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     Nuevo Registro
                 </div>';
-        }else{
+        } else {
             $mensajeResultado = '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    No se Registro
+                    No se Registró
                 </div>';
         }
         $this->view->mensajeResultado = $mensajeResultado;        
@@ -56,7 +61,12 @@ class Cursos extends Controller{
 
     //actualizarcurso
     function actualizarcurso(){
-        //var_dump($_POST);
+        
+        $usuario = $_POST['usuario'];
+    
+        // Agrega el valor del usuario al arreglo $_POST
+        $_POST['usuario'] = $usuario;
+        
         if ($this->model->actualizarcurso($_POST)){
 
             $datos = new classCursos();

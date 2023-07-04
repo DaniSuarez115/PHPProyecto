@@ -1,10 +1,10 @@
-    <div class="mb-3" <?php echo isset($this->datos->id)? "" :"hidden";?>>
-      <label for="" class="form-label">Id</label>
-      <input type="text" 
-        class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="" 
-        value="<?php echo isset($this->datos->id)? $this->datos->id :"";?>">
-      <small id="helpId" class="form-text text-muted">Help text</small>
-    </div>
+<div class="mb-3" <?php echo isset($this->datos->id)? "" :"hidden";?>>
+  <label for="" class="form-label">Id</label>
+  <input type="text" 
+    class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="" 
+    value="<?php echo isset($this->datos->id)? $this->datos->id :"";?>" <?php echo isset($this->datos->id)? "readonly" :"";?>>
+  <small id="helpId" class="form-text text-muted">Help text</small>
+</div>
     <div class="mb-3">
       <label for="" class="form-label">Nombre</label>
       <input type="text" required
@@ -25,6 +25,13 @@
           class="form-control" name="tiempo" id="tiempo" aria-describedby="helpId" placeholder="Ingrese el Tiempo del curso"
           value="<?php echo isset($this->datos->tiempo)? $this->datos->tiempo :"";?>">
         <small id="helpId" class="form-text text-muted">Tiempo del Curso</small>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">usuario</label>
+        <input type="text" required
+          class="form-control" name="usuario" id="usuario" aria-describedby="helpId" placeholder="Ingrese el usuario"
+          value="<?php echo isset($this->datos->usuario)? $this->datos->usuario :"";?>">
+        <small id="helpId" class="form-text text-muted">usuario del curso</small>
       </div>
       <div class="mb-3">
             <button type="submit" class="btn btn-primary">Salvar</button>

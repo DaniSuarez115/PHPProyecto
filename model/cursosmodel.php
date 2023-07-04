@@ -34,19 +34,13 @@ class CursosModel extends Model{
     }
 
     public function insertarCurso($datos){
-//# INSERT INTO curso(id, nombre, descripcion, tiempo, usuario) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
         try {
-            //code...
             $datos['id'] = "0";
-            $datos['usuario'] = "Prof Mario";
             $stringSQL = 'INSERT INTO curso(id, nombre, descripcion, tiempo, usuario) VALUES ( :id, :nombre, :descripcion, :tiempo, :usuario);';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);
             return true;
-
         } catch (PDOException $th) {
-            //throw $th;
-            //var_dump($th);
             return false;
         }
     }
@@ -75,18 +69,13 @@ class CursosModel extends Model{
     }
       //actualizarcurso
       public function actualizarcurso($datos){
-//            var_dump($datos);
-        try {
-            //code... 
-            //#UPDATE curso SET nombre='[value-2]',descripcion='[value-3]',tiempo='[value-4]',usuario='[value-5]' WHERE id='[value-1]'                     
-            $datos['usuario'] = "Prof Mario";
+
+        try {    
             $stringSQL = 'UPDATE curso SET nombre=:nombre,descripcion=:descripcion,tiempo=:tiempo,usuario=:usuario WHERE id=:id ;';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);
             return true;
-
         } catch (PDOException $th) {
-            //throw $th;
             var_dump($th);
             return false;
         }
