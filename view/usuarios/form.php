@@ -20,12 +20,11 @@
         <small id="helpId" class="form-text text-muted">email</small>
       </div>
       <div class="mb-3">
-        <label for="" class="form-label">password</label>
-        <input type="text" required
-          class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Ingrese el password"
-          value="<?php echo isset($this->datos->password)? $this->datos->password :"";?>">
-        <small id="helpId" class="form-text text-muted">password</small>
-      </div>
+    <label for="password" class="form-label">Password</label>
+    <input type="password" required class="form-control" name="password" id="password" placeholder="Ingrese el password"
+           value="<?php echo isset($this->datos->password) ? $this->datos->password : ''; ?>">
+    <small id="helpId" class="form-text text-muted">Password</small>
+</div>
       <div class="mb-3">
             <button type="submit" class="btn btn-primary">Salvar</button>
       </div>

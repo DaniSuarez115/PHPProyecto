@@ -75,39 +75,57 @@
         $this->view->render('usuarios/detalle');
     }
 
-    function actualizarusuario(){
-
+    function actualizarusuario()
+    {
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
         }
         
-        if ($this->model->actualizarusuario($_POST)){
-
-            $datos = new classUsuarios();
-
-            foreach ($_POST as $key => $value) {
-                # code...
-                $datos->$key= $value;
-            }
-
-            $mensajeResultado = '
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    Actualizacion de Registro
-                </div>';
-        }else{
+        // Obtener los datos enviados por el formulario
+        $id = $_POST['id'];
+        $nombre = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+    
+        // Verificar si la contraseña actual es válida
+        if (!$this->model->validarContrasenaActual($id, $password)) {
             $mensajeResultado = '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    No se actualizo el Registro
+                    La contraseña actual no es válida
+                </div>';
+    
+            $this->view->mensajeResultado = $mensajeResultado;
+            $this->render();
+            return;
+        }
+    
+        // Actualizar los datos del usuario en el modelo
+        $datos = array(
+            'id' => $id,
+            'name' => $nombre,
+            'email' => $email,
+            'password' => $password
+        );
+    
+        if ($this->model->actualizarusuario($datos)) {
+            $mensajeResultado = '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    Actualización de Registro
+                </div>';
+        } else {
+            $mensajeResultado = '
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    No se actualizó el Registro
                 </div>';
         }
-        $this->view->datos = $datos;
-        $this->view->mensaje = "Detalle usuario";
-        $this->view->mensajeResultado = $mensajeResultado;        
-        $this->view->render('usuarios/detalle');
+    
+        $this->view->mensajeResultado = $mensajeResultado;
+        $this->render();
     }    
 
 

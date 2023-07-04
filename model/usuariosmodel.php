@@ -78,7 +78,7 @@ class UsuariosModel extends Model{
                 $hashedPassword = password_hash($datos['password'], PASSWORD_DEFAULT);
                 $datos['password'] = $hashedPassword;
             }
-
+    
             $stringSQL = 'UPDATE user SET name=:name, password=:password, email=:email WHERE id=:id;';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);
@@ -118,6 +118,26 @@ class UsuariosModel extends Model{
             if ($row) {
                 $hashedPassword = $row['password'];
                 return password_verify($password, $hashedPassword);
+            }
+
+            return false;
+        } catch (PDOException $th) {
+            return false;
+        }
+    }
+
+    public function validarContrasenaActual($id, $contrasenaActual)
+    {
+        try {
+            $stringSQL = "SELECT password FROM `user` WHERE id = :id;";
+            $query = $this->db->connect()->prepare($stringSQL);
+            $query->execute(['id' => $id]);
+
+            $row = $query->fetch();
+
+            if ($row) {
+                $hashedPassword = $row['password'];
+                return password_verify($contrasenaActual, $hashedPassword);
             }
 
             return false;
