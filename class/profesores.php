@@ -1,5 +1,5 @@
 <?php
-class ClassProfesores{
+class classProfesores{
 public $id;
 public $cedula;
 public $correoelectronico;

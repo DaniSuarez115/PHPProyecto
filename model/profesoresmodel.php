@@ -32,12 +32,9 @@ class ProfesoresModel extends Model {
     public function insertarProfesores($datos) {
         try {
             $datos['id'] = "0";
-            $datos['usuario'] = "Prof Mario";
-
             $stringSQL = 'INSERT INTO profesor (id, cedula, correoelectronico, telefono, telefonocelular, fechanacimiento, sexo, direccion, nombre, apellidopaterno, apellidomaterno, nacionalidad, idCarreras, usuario) VALUES (:id, :cedula, :correoelectronico, :telefono, :telefonocelular, :fechanacimiento, :sexo, :direccion, :nombre, :apellidopaterno, :apellidomaterno, :nacionalidad, :idCarreras, :usuario)';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);
-
             return true;
         } catch (PDOException $th) {
             return false;
@@ -66,8 +63,6 @@ class ProfesoresModel extends Model {
 
     public function actualizarProfesores($datos) {
         try {
-            $datos['usuario'] = "Prof Mario";
-
             $stringSQL = 'UPDATE profesor SET cedula = :cedula, correoelectronico = :correoelectronico, telefono = :telefono, telefonocelular = :telefonocelular, fechanacimiento = :fechanacimiento, sexo = :sexo, direccion = :direccion, nombre = :nombre, apellidopaterno = :apellidopaterno, apellidomaterno = :apellidomaterno, nacionalidad = :nacionalidad, idCarreras = :idCarreras, usuario = :usuario WHERE id = :id';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);

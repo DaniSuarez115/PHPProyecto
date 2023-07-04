@@ -33,23 +33,72 @@ class GruposModel extends Model{
         }
     }
 
-//     public function insertarCurso($datos){
-// //# INSERT INTO curso(id, nombre, descripcion, tiempo, usuario) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
-//         try {
-//             //code...
-//             $datos['id'] = "0";
-//             $datos['usuario'] = "Prof Mario";
-//             $stringSQL = 'INSERT INTO curso(id, nombre, descripcion, tiempo, usuario) VALUES ( :id, :nombre, :descripcion, :tiempo, :usuario);';
-//             $query = $this->db->connect()->prepare($stringSQL);
-//             $query->execute($datos);
-//             return true;
+    public function insertarGrupo($datos){
+        try {
+            $datos['id'] = "0";
+            $stringSQL = 'INSERT INTO grupo(id, nombre) VALUES ( :id, :nombre);';
+            $query = $this->db->connect()->prepare($stringSQL);
+            $query->execute($datos);
+            return true;
+        } catch (PDOException $th) {
+            return false;
+        }
+    }
 
-//         } catch (PDOException $th) {
-//             //throw $th;
-//             //var_dump($th);
-//             return false;
-//         }
-//     }
+    public function verGrupos($id){
+        
+        try {
+            $item = new classGrupos();
+            //code...
+            $stringSQL = "Select * FROM `grupo` where id=:id;";
+            $query = $this->db->connect()->prepare($stringSQL);
+            $query->execute(['id'=>$id]);
+
+            while ( $row = $query->fetch()){//obtiene la fila
+                foreach ($row as $key => $value) {
+                    # code...
+                    $item->$key = $value;
+                   // $_SESSION['autenticado'] = true;
+                }
+            }
+            return $item;
+        } catch (PDOException $th) {
+            //throw $th;
+            return [];
+        }           
+    }
+
+    public function actualizargrupo($datos){
+
+        try {
+                                
+    
+            $stringSQL = 'UPDATE grupo SET nombre=:nombre WHERE id=:id ;';
+            $query = $this->db->connect()->prepare($stringSQL);
+            $query->execute($datos);
+            return true;
+        } catch (PDOException $th) {
+            var_dump($th);
+            return false;
+        }
+    }
+    
+    public function eliminargrupo($id){        
+        try {            
+
+            $stringSQL = "DELETE FROM `grupo` WHERE id =:id;";
+            $query = $this->db->connect()->prepare($stringSQL);
+            $query->execute(['id'=>$id]);
+            
+            return true;
+        } catch (PDOException $th) {
+            
+            var_dump($th);
+            return false;
+        }           
+    }
+
+ 
 }
 
 ?>

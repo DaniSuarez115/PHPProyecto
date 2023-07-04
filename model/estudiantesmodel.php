@@ -32,8 +32,6 @@ class EstudiantesModel extends Model {
     public function insertarEstudiantes($datos) {
         try {
             $datos['id'] = "0";
-            $datos['usuario'] = "Prof Mario";
-
             $stringSQL = 'INSERT INTO estudiante (id, cedula, correoelectronico, telefono, telefonocelular, fechanacimiento, sexo, direccion, nombre, apellidopaterno, apellidomaterno, nacionalidad, idCarreras, usuario) VALUES (:id, :cedula, :correoelectronico, :telefono, :telefonocelular, :fechanacimiento, :sexo, :direccion, :nombre, :apellidopaterno, :apellidomaterno, :nacionalidad, :idCarreras, :usuario)';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);
@@ -66,8 +64,6 @@ class EstudiantesModel extends Model {
 
     public function actualizarEstudiantes($datos) {
         try {
-            $datos['usuario'] = "Prof Mario";
-
             $stringSQL = 'UPDATE estudiante SET cedula = :cedula, correoelectronico = :correoelectronico, telefono = :telefono, telefonocelular = :telefonocelular, fechanacimiento = :fechanacimiento, sexo = :sexo, direccion = :direccion, nombre = :nombre, apellidopaterno = :apellidopaterno, apellidomaterno = :apellidomaterno, nacionalidad = :nacionalidad, idCarreras = :idCarreras, usuario = :usuario WHERE id = :id';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);

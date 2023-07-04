@@ -24,26 +24,30 @@
                 </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <?php 
-                        foreach ($this->datos as $row) {
+                <?php 
+                    foreach ($this->datos as $row) {
+                        $datos = new classCursos();
+                        $datos = $row;
+                        
+                        echo '<tr class="table-secondary">
+                                <td scope="row">'.$datos->id.'</td>
+                                <td>'.$datos->nombre.'</td>
+                                <td>'.$datos->descripcion.'</td>
+                                <td>'.$datos->tiempo.'</td>
+                                <td>'.$datos->usuario.'</td>
+                                <td>';
 
-                            $datos = new classCursos();
-                            $datos = $row;
-                            # code..
-                            echo ' <tr class="table-secondary" >
-                                    <td scope="row">'.$datos->id.'</td>
-                                    <td>'.$datos->nombre.'</td>
-                                    <td>'.$datos->descripcion.'</td>
-                                    <td>'.$datos->tiempo.'</td>
-                                    <td>'.$datos->usuario.'</td>
-                                    <td>
-                                        <a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'cursos/eliminarcurso/'.$datos->id.'" role="button">Eliminar</a>
-                                        ||
-                                        <a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'cursos/verCursos/'.$datos->id.'" role="button">Editar</a>
-                                    </td>
-                                </tr>';
+                        // Verificar si el usuario está autenticado
+                        if (isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === true) {
+                            echo '<a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'cursos/eliminarcurso/'.$datos->id.'" role="button">Eliminar</a>';
+                            echo ' || ';
+                            echo '<a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'cursos/verCursos/'.$datos->id.'" role="button">Editar</a>';
                         }
-                    ?>
+                                
+                        echo '</td>
+                            </tr>';
+                    }
+                ?>
                 </tbody>
                 <tfoot>
                     
@@ -53,4 +57,4 @@
 </div>
 <?php
     require 'view/footer.php';
-?>
+?>  

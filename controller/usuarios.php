@@ -1,80 +1,67 @@
 <?php
-class Cursos extends Controller{
+ class Usuarios extends Controller
+ {
     function __construct(){
-        parent::__construct();
+        parent:: __construct();
         parent::connectionSession();
-
         $this->view->datos = [];
-        $this->view->mensaje = "Seccion Cursos";
-        $this->view->mensajeResultado = "";        
+        $this->view->mensaje = "Seccion Usuarios";
+        $this->view->mensajeResultado = "";    
     }
-    function render() {
+    function render(){
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
         }
-    
-        $datos = $this->model->getCursos();               
+        $datos = $this->model->getUsuarios();               
         $this->view->datos = $datos;
-        $this->view->render('cursos/index');
+        $this->view->render('usuarios/index');
     }
-
-    function crear(){   //para ver la vista    
-        
+    function crear(){   //para ver la vista     
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
-        }
-
+        }              
         $this->view->datos = [];
-        $this->view->mensaje = "Crear Cursos";
-        $this->view->render('cursos/crear');
+        $this->view->mensaje = "Crear Usuario";
+        $this->view->render('usuarios/crear');
     }
-
-    public function insertarCurso(){
-
+    function insertarUsuario(){
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
         }
-        // Obtén el valor del usuario del formulario
-        $usuario = $_POST['usuario'];
-    
-        // Agrega el valor del usuario al arreglo $_POST
-        $_POST['usuario'] = $usuario;
-    
-        if ($this->model->insertarCurso($_POST)){
+
+        if ($this->model->insertarUsuario($_POST)){
             $mensajeResultado = '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     Nuevo Registro
                 </div>';
-        } else {
+        }else{
             $mensajeResultado = '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    No se Registró
+                    No se Registro
                 </div>';
         }
         $this->view->mensajeResultado = $mensajeResultado;        
         $this->render();
     }
-
-    function detalle(){         
+    function detalle(){               
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
-        }             
+        }       
         $this->view->datos = [];
-        $this->view->mensaje = "Detalles del Cursos";
-        $this->view->render('cursos/detalle');
+        $this->view->mensaje = "Detalles del Usuario";
+        $this->view->render('usuarios/detalle');
     }
-
-    function verCursos( $param = null ){       
+    function verUsuarios( $param = null ){       
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
@@ -82,14 +69,13 @@ class Cursos extends Controller{
         } 
         $id = $param[0];
 
-        $datos = $this->model->verCursos($id);        
+        $datos = $this->model->verUsuarios($id);        
         $this->view->datos = $datos;
-        $this->view->mensaje = "Detalle Curso";
-        $this->view->render('cursos/detalle');
+        $this->view->mensaje = "Detalle usuario";
+        $this->view->render('usuarios/detalle');
     }
 
-    //actualizarcurso
-    function actualizarcurso(){
+    function actualizarusuario(){
 
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
@@ -97,14 +83,9 @@ class Cursos extends Controller{
             exit;
         }
         
-        $usuario = $_POST['usuario'];
-    
-        // Agrega el valor del usuario al arreglo $_POST
-        $_POST['usuario'] = $usuario;
-        
-        if ($this->model->actualizarcurso($_POST)){
+        if ($this->model->actualizarusuario($_POST)){
 
-            $datos = new classCursos();
+            $datos = new classUsuarios();
 
             foreach ($_POST as $key => $value) {
                 # code...
@@ -124,21 +105,20 @@ class Cursos extends Controller{
                 </div>';
         }
         $this->view->datos = $datos;
-        $this->view->mensaje = "Detalle Curso";
+        $this->view->mensaje = "Detalle usuario";
         $this->view->mensajeResultado = $mensajeResultado;        
-        $this->view->render('cursos/detalle');
+        $this->view->render('usuarios/detalle');
     }    
 
-    //eliminarcurso
-    function eliminarcurso( $param = null ){   
+
+    function eliminarUsuario( $param = null ){   
         if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
             // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
             header('Location: ' . constant('URL') . 'usuarios/loginForm');
             exit;
         }
-
         $id = $param[0];
-        if ($this->model->eliminarcurso($id)){
+        if ($this->model->eliminarusuario($id)){
             $mensajeResultado = '
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -153,6 +133,29 @@ class Cursos extends Controller{
         }
         $this->view->mensajeResultado = $mensajeResultado;        
         $this->render();
+    }    
+
+
+     function login()
+    {
+    // Obtener los datos del formulario de inicio de sesión
+    $usuario = $_POST['user'];
+    $password = $_POST['password'];
+
+    // Verificar si los datos de inicio de sesión son válidos
+    if ($this->model->validarUsuario($usuario, $password)) {
+        // Iniciar sesión para el usuario
+        session_start();
+        $_SESSION['autenticado'] = true;
+        $_SESSION['usuario'] = $usuario;
+
+        // Redirigir al usuario a la página principal
+        header('Location: ' . constant('URL'));
+    } else {
+        // Mostrar mensaje de error y volver a cargar el formulario de inicio de sesión
+        $this->view->mensaje = "Credenciales inválidas";
+        $this->view->render('auth/login');
+    }
     }
 
     function logout() {
@@ -164,7 +167,13 @@ class Cursos extends Controller{
         exit;
     }
 
-    
-}
+    public function loginForm()
+    {
+        // Aquí deberías cargar la vista del formulario de inicio de sesión
+        $this->view->render('auth/login');
+    }
+
+ }
+
 
 ?>

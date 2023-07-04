@@ -9,18 +9,36 @@ class Estudiantes extends Controller {
     }
 
     function render() {
+
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
         $datos = $this->model->getEstudiantes();
         $this->view->datos = $datos;
         $this->view->render('estudiante/index');
     }
 
     function crear() {
+
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
         $this->view->datos = [];
         $this->view->mensaje = "Crear Estudiante";
         $this->view->render('estudiante/crear');
     }
 
     function insertarEstudiantes() {
+
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
         if ($this->model->insertarEstudiantes($_POST)) {
             $mensajeResultado = '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -45,6 +63,11 @@ class Estudiantes extends Controller {
     }
 
     function verEstudiante($param = null) {
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
         $id = $param[0];
 
         $datos = $this->model->verEstudiantes($id);
@@ -54,6 +77,12 @@ class Estudiantes extends Controller {
     }
 
     function actualizarEstudiantes() {
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
+
         if ($this->model->actualizarEstudiantes($_POST)) {
             $mensajeResultado = '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -72,6 +101,12 @@ class Estudiantes extends Controller {
     }
 
     function eliminarEstudiantes($param = null) {
+        if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== true) {
+            // El usuario no está autenticado, redirigir a la página de inicio de sesión o mostrar un mensaje de error
+            header('Location: ' . constant('URL') . 'usuarios/loginForm');
+            exit;
+        }
+
         $id = $param[0];
         if ($this->model->eliminarEstudiantes($id)) {
             $mensajeResultado = '
@@ -88,6 +123,15 @@ class Estudiantes extends Controller {
         }
         $this->view->mensajeResultado = $mensajeResultado;
         $this->render();
+    }
+
+    function logout() {
+        // Cerrar la sesión del usuario
+        session_destroy();
+
+        // Redirigir al usuario a la página de inicio de sesión
+        header('Location: ' . constant('URL') . 'usuarios/loginForm');
+        exit;
     }
 }
 ?>

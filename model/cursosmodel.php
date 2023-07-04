@@ -46,7 +46,7 @@ class CursosModel extends Model{
     }
 
     public function verCursos($id){
-        var_dump($_SESSION);
+        
         try {
             $item = new classCursos();
             //code...
@@ -70,7 +70,8 @@ class CursosModel extends Model{
       //actualizarcurso
       public function actualizarcurso($datos){
 
-        try {    
+        try {
+                                 
             $stringSQL = 'UPDATE curso SET nombre=:nombre,descripcion=:descripcion,tiempo=:tiempo,usuario=:usuario WHERE id=:id ;';
             $query = $this->db->connect()->prepare($stringSQL);
             $query->execute($datos);

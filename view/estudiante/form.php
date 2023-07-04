@@ -1,10 +1,10 @@
 <div class="mb-3" <?php echo isset($this->datos->id)? "" :"hidden";?>>
-      <label for="" class="form-label">Id</label>
-      <input type="text" 
-        class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="" 
-        value="<?php echo isset($this->datos->id)? $this->datos->id :"";?>">
-      <small id="helpId" class="form-text text-muted">Help text</small>
-    </div>
+  <label for="" class="form-label">Id</label>
+  <input type="text" 
+    class="form-control" name="id" id="id" aria-describedby="helpId" placeholder="" 
+    value="<?php echo isset($this->datos->id)? $this->datos->id :"";?>" <?php echo isset($this->datos->id)? "readonly" :"";?>>
+  <small id="helpId" class="form-text text-muted">Help text</small>
+</div>
     <div class="mb-3">
       <label for="" class="form-label">Cédula</label>
       <input type="text" required

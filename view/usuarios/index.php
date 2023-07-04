@@ -18,6 +18,7 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>email</th>
+                    <th>password</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -25,17 +26,18 @@
                     <?php 
                         foreach ($this->datos as $row) {
 
-                            $datos = new classCursos();
+                            $datos = new classUsuarios();
                             $datos = $row;
                             # code..
                             echo ' <tr class="table-secondary" >
                                     <td scope="row">'.$datos->id.'</td>
                                     <td>'.$datos->name.'</td>
                                     <td>'.$datos->email.'</td>
+                                    <td>'.$datos->password.'</td>
                                     <td>
-                                        <a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'usuario/eliminarusuario/'.$datos->id.'" role="button">Eliminar</a>
+                                        <a name="eliminar" id="eliminar" class="btn btn-danger" href="'.constant('URL').'usuarios/eliminarUsuario/'.$datos->id.'" role="button">Eliminar</a>
                                         ||
-                                        <a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'usuario/verusuario/'.$datos->id.'" role="button">Editar</a>
+                                        <a name="editar" id="editar" class="btn btn-primary" href="'.constant('URL').'usuarios/verUsuarios/'.$datos->id.'" role="button">Editar</a>
                                     </td>
                                 </tr>';
                         }
